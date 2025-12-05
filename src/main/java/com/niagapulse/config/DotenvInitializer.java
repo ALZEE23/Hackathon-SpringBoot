@@ -22,10 +22,8 @@ public class DotenvInitializer implements ApplicationContextInitializer<Configur
             
             // Masukkan .env ke urutan PERTAMA, supaya dia menimpa yang lain
             environment.getPropertySources().addFirst(new MapPropertySource("dotenv", envMap));
-            
-            System.out.println("✅ [DotenvInitializer] Environment variables loaded!");
         } catch (Exception e) {
-            System.out.println("⚠️ [DotenvInitializer] .env not found, using system variables.");
+            // .env not found, using system variables
         }
     }
 }

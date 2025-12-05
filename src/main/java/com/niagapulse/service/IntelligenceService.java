@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 import org.springframework.util.StringUtils;
 
-import org.json.JSONObject;
 import java.util.Map;
 
 @Service
@@ -40,9 +39,8 @@ public class IntelligenceService {
     private final String AI_ENDPOINT;
 
     public IntelligenceService(RestTemplate restTemplate,
-                               ObjectMapper objectMapper,
-                               @Value("${niagapulse.ai.endpoint:https://api.openai.com/v1/chat/completions}") 
-                               String aiEndpoint) {
+            ObjectMapper objectMapper,
+            @Value("${niagapulse.ai.endpoint:https://api.openai.com/v1/chat/completions}") String aiEndpoint) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.AI_ENDPOINT = aiEndpoint;
@@ -102,11 +100,10 @@ public class IntelligenceService {
 
         String prompt = String.format(
                 "Saya pedagang keliling di area %s. Lokasi: (%.4f, %.4f). Cuaca: %s. Riwayat penjualan: %s. " +
-                "Berikan 1 kalimat (maks 15 kata) kemana saya harus pindah.",
+                        "Berikan 1 kalimat (maks 15 kata) kemana saya harus pindah.",
                 area, lat, lon,
                 cuaca == null ? "Tidak diketahui" : cuaca,
-                historisPenjualan == null ? "-" : historisPenjualan
-        );
+                historisPenjualan == null ? "-" : historisPenjualan);
 
         return callAI(prompt);
     }
@@ -118,62 +115,60 @@ public class IntelligenceService {
 
         String prompt = String.format(
                 "Saya pedagang keliling di area %s. Cuaca: %s. Data penjualan: %s. " +
-                "Berikan 1 kalimat saran rute terbaik.",
-                area, cuaca, historySales
-        );
+                        "Berikan 1 kalimat saran rute terbaik.",
+                area, cuaca, historySales);
 
         return callAI(prompt);
     }
-
 
     // =====================================================
     // AI CALLER — SINGLE PLACE
     // =====================================================
     private String callAI(String prompt) {
-    if (!StringUtils.hasText(aiApiKey)) {
-        return "AI tidak tersedia (API key tidak ditemukan)";
+        if (!StringUtils.hasText(aiApiKey)) {
+            return "AI tidak tersedia (API key tidak ditemukan)";
+        }
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(aiApiKey);
+
+            // Body sesuai Kolosal AI
+            Map<String, Object> body = Map.of(
+                    "model", aiModel, // contoh: "Claude Sonnet 4.5"
+                    "messages", new Object[] {
+                            Map.of("role", "system", "content", "Kamu adalah AI pembantu strategi UMKM."),
+                            Map.of("role", "user", "content", prompt)
+                    });
+
+            HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
+
+            ResponseEntity<String> resp = restTemplate.postForEntity(AI_ENDPOINT, entity, String.class);
+
+            // Parse response using Jackson (format Kolosal AI)
+            JsonNode json = objectMapper.readTree(resp.getBody());
+
+            return json
+                    .path("choices")
+                    .get(0)
+                    .path("message")
+                    .path("content")
+                    .asText()
+                    .trim();
+
+        } catch (Exception e) {
+            log.error("AI error: {}", e.getMessage());
+            return "AI sedang sibuk. Coba lagi nanti.";
+        }
     }
-
-    try {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(aiApiKey);
-
-        // Body sesuai Kolosal AI
-        Map<String, Object> body = Map.of(
-            "model", aiModel,  // contoh: "Claude Sonnet 4.5"
-            "messages", new Object[]{
-                Map.of("role", "system", "content", "Kamu adalah AI pembantu strategi UMKM."),
-                Map.of("role", "user", "content", prompt)
-            }
-        );
-
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
-
-        ResponseEntity<String> resp = restTemplate.postForEntity(AI_ENDPOINT, entity, String.class);
-
-        // Parse response (format Kolosal AI)
-        JSONObject json = new JSONObject(resp.getBody());
-
-        return json
-            .getJSONArray("choices")
-            .getJSONObject(0)
-            .getJSONObject("message")
-            .getString("content")
-            .trim();
-
-    } catch (Exception e) {
-        log.error("AI error: {}", e.getMessage());
-        return "AI sedang sibuk. Coba lagi nanti.";
-    }
-}
-
 
     // =====================================================
     // REVERSE GEOCODING
     // =====================================================
     public String getAddressName(Double lat, Double lon) {
-        if (lat == null || lon == null) return "Area Tidak Dikenal";
+        if (lat == null || lon == null)
+            return "Area Tidak Dikenal";
 
         try {
             String url = String.format(GEOCODE_URL, lat, lon);
@@ -182,11 +177,12 @@ public class IntelligenceService {
             headers.set("User-Agent", "NiagaPulse-App");
 
             ResponseEntity<String> response = restTemplate.exchange(
-                url, HttpMethod.GET, new HttpEntity<>(headers), String.class);
+                    url, HttpMethod.GET, new HttpEntity<>(headers), String.class);
 
             if (response.getBody() != null) {
                 JsonNode root = objectMapper.readTree(response.getBody());
-                if (root.has("display_name")) return root.get("display_name").asText();
+                if (root.has("display_name"))
+                    return root.get("display_name").asText();
             }
 
         } catch (Exception e) {

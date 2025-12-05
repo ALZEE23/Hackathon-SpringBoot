@@ -27,9 +27,6 @@ public class SalesService {
 
         if (lastKnown.isPresent()) {
             trx.setLocation(lastKnown.get().getLocation());
-            System.out.println("✅ Sales +1 (Auto-Locate Success)");
-        } else {
-            System.out.println("⚠️ Sales +1 (No Location Data - Pedagang Gak Tracking)");
         }
 
         salesRepo.save(trx);
