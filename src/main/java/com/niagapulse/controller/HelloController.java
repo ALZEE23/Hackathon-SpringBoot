@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +21,12 @@ public class HelloController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/hello/{name}")
-    public ResponseEntity<Map<String, String>> greetByName(@PathVariable String name) {
+    @GetMapping("/hello/user")
+    public ResponseEntity<Map<String, String>> greetUser(Authentication authentication) {
+        String username = authentication.getName();
+
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Hello " + name);
+        response.put("message", "Hello " + username);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
