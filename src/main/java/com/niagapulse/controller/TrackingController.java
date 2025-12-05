@@ -2,26 +2,41 @@ package com.niagapulse.controller;
 
 import com.niagapulse.dto.TrackingRequest;
 import com.niagapulse.service.TrackingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping; // WAJIB
-import org.springframework.web.bind.annotation.RequestBody; // WAJIB
-import org.springframework.web.bind.annotation.RequestMapping; // WAJIB
-import org.springframework.web.bind.annotation.RestController; // WAJIB
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RestController // PENTING: Spring tahu ini API, bukan halaman web
-@RequestMapping("/api/tracking") // Basis URL-nya
+@RestController
+@RequestMapping("/api/tracking")
 public class TrackingController {
 
-    @Autowired
-    private TrackingService trackingService;
+    private static final Logger log = LoggerFactory.getLogger(TrackingController.class);
+    private final TrackingService trackingService;
 
-    // Endpoint: POST http://localhost:8080/api/tracking/update
-    @PostMapping("/update") // Method POST untuk URL /update
+    public TrackingController(TrackingService trackingService) {
+        this.trackingService = trackingService;
+    }
+
+    @PostMapping("/update")
     public ResponseEntity<String> updatePosition(@RequestBody TrackingRequest request) {
-        
-        trackingService.logLocation(request);
-        
-        return ResponseEntity.ok("Lokasi diterima. Aman.");
+        try {
+            if (request == null || request.getLatitude() == null || request.getLongitude() == null) {
+                log.warn("Invalid tracking request: missing required fields");
+                return ResponseEntity.badRequest().body("Error: latitude and longitude are required");
+            }
+
+            trackingService.logLocation(request);
+            log.info("Location update successful for vendor: {}", request.getVendorId());
+            return ResponseEntity.ok("Location received and logged");
+        } catch (Exception e) {
+            log.error("Error updating location: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error: " + e.getMessage());
+        }
     }
 }

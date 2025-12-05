@@ -7,33 +7,47 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TrackingService {
 
-    @Autowired
-    private VendorLocationLogRepository locationRepo;
+    private static final Logger log = LoggerFactory.getLogger(TrackingService.class);
+    private final VendorLocationLogRepository locationRepo;
+    private final IntelligenceService intelligenceService;
+    private final GeometryFactory geometryFactory;
 
-    @Autowired
-    private IntelligenceService intelligenceService; // INJECT SERVICE CUACA
-
-    private final GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
+    public TrackingService(VendorLocationLogRepository locationRepo, IntelligenceService intelligenceService) {
+        this.locationRepo = locationRepo;
+        this.intelligenceService = intelligenceService;
+        this.geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
+    }
 
     public void logLocation(TrackingRequest request) {
-        Point point = geometryFactory.createPoint(new Coordinate(request.getLongitude(), request.getLatitude()));
-        
-        VendorLocationLog log = new VendorLocationLog();
-        log.setVendorId(request.getVendorId());
-        log.setLocation(point);
-        
-        // 🔥 PANGGIL CUACA OTOMATIS
-        String currentCuaca = intelligenceService.getWeather(request.getLatitude(), request.getLongitude());
-        log.setWeatherCondition(currentCuaca);
+        try {
+            if (request == null || request.getLatitude() == null || request.getLongitude() == null) {
+                log.warn("Invalid request: null values detected");
+                return;
+            }
 
-        locationRepo.save(log);
-        
-        System.out.println("📍 Jejak: " + request.getLatitude() + "," + request.getLongitude() + " | 🌤️ " + currentCuaca);
+            Point point = geometryFactory.createPoint(new Coordinate(request.getLongitude(), request.getLatitude()));
+            
+            VendorLocationLog vendorLog = new VendorLocationLog();
+            vendorLog.setVendorId(request.getVendorId());
+            vendorLog.setLocation(point);
+            
+            // Fetch weather asynchronously (or with timeout) to avoid blocking
+            String currentWeather = intelligenceService.getWeather(request.getLatitude(), request.getLongitude());
+            vendorLog.setWeatherCondition(currentWeather);
+
+            locationRepo.save(vendorLog);
+            log.info("📍 Location logged: lat={}, lon={}, weather={}, vendor={}", 
+                    request.getLatitude(), request.getLongitude(), currentWeather, request.getVendorId());
+        } catch (Exception e) {
+            log.error("Failed to log location: {}", e.getMessage(), e);
+            throw new RuntimeException("Location logging failed", e);
+        }
     }
 }

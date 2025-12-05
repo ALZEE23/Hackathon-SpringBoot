@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SalesTransactionRepository extends JpaRepository<SalesTransaction, Long> {
+    long countByVendorId(String vendorId);
 }
