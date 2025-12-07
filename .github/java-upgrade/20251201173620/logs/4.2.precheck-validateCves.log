@@ -1,0 +1,48 @@
+2025-12-01T18:17:35.260Z [INFO] getting CVEs for dependencies:
+ - org.springframework.boot:spring-boot-starter-data-jpa:4.0.0
+  - org.springframework.boot:spring-boot-starter-webmvc:4.0.0
+  - org.springframework.boot:spring-boot-devtools:4.0.0
+  - org.postgresql:postgresql:42.7.8
+  - org.projectlombok:lombok:1.18.42
+  - org.springframework.boot:spring-boot-starter-data-jpa-test:4.0.0
+  - org.springframework.boot:spring-boot-starter-webmvc-test:4.0.0
+  - java:*:17...
+2025-12-01T18:17:35.260Z [INFO] getting gitHub access token...
+2025-12-01T18:17:35.277Z [INFO] Processing batch 1/1, size: 8
+2025-12-01T18:17:35.281Z [INFO] listing CVEs from GithHub for dependencies [
+  {
+    "name": "org.springframework.boot:spring-boot-starter-data-jpa",
+    "version": "4.0.0"
+  },
+  {
+    "name": "org.springframework.boot:spring-boot-starter-webmvc",
+    "version": "4.0.0"
+  },
+  {
+    "name": "org.springframework.boot:spring-boot-devtools",
+    "version": "4.0.0"
+  },
+  {
+    "name": "org.postgresql:postgresql",
+    "version": "42.7.8"
+  },
+  {
+    "name": "org.projectlombok:lombok",
+    "version": "1.18.42"
+  },
+  {
+    "name": "org.springframework.boot:spring-boot-starter-data-jpa-test",
+    "version": "4.0.0"
+  },
+  {
+    "name": "org.springframework.boot:spring-boot-starter-webmvc-test",
+    "version": "4.0.0"
+  },
+  {
+    "name": "java:*",
+    "version": "17"
+  }
+]
+2025-12-01T18:17:35.933Z [INFO] found 0 CVEs for dependencies
+2025-12-01T18:17:35.934Z [INFO] grouping CVEs and finding min patched version by dep...
+2025-12-01T18:17:35.934Z [INFO] done getting 0 CVEs for 8 dependencies

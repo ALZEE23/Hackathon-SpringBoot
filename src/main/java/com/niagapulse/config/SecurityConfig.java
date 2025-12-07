@@ -29,11 +29,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Public (register, login)
-                        .requestMatchers("/api/hello").permitAll() // Public hello
-                        .anyRequest().authenticated() // Sisanya butuh JWT token
-                )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Tambahkan JWT filter
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/hello").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

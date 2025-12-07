@@ -1,0 +1,9 @@
+2025-12-01T18:23:03.700Z [INFO] [Task.commitChanges](6.2): Committing changes for d:\Coding\Proyek\Niagapulse with message: Set java.version to 21 and upgrade org.postgresql:postgresql to 42.7.2
+2025-12-01T18:23:04.055Z [INFO] [appmod/java-upgrade-20251201173620 41e7f05] Set java.version to 21 and upgrade org.postgresql:postgresql to 42.7.2
+ 1 file changed, 21 insertions(+), 14 deletions(-)
+
+2025-12-01T18:23:04.207Z [INFO] 41e7f05656b2d3d72b0794f435ff79e97cf80da8
+
+2025-12-01T18:23:04.347Z [INFO] 21	14	pom.xml
+
+2025-12-01T18:23:04.374Z [INFO] [Task.commitChanges](6.2): Committed changes for d:\Coding\Proyek\Niagapulse with message: Set java.version to 21 and upgrade org.postgresql:postgresql to 42.7.2

@@ -1,0 +1,99 @@
+2025-12-01T18:17:13.466Z [INFO] Prechecking project Niagapulse...
+2025-12-01T18:17:13.467Z [INFO] Prechecking build status...
+2025-12-01T18:17:35.259Z [INFO] Prechecking CVEs...
+2025-12-01T18:17:35.938Z [INFO] Prechecking tests...
+2025-12-01T18:17:35.938Z [INFO] Run tests before upgrading...
+2025-12-01T18:17:53.880Z [INFO] Prepare initial state...
+2025-12-01T18:17:53.881Z [INFO] [Project Niagapulse]: getting project state.
+2025-12-01T18:17:53.881Z [INFO] [Project Niagapulse]: getting Java version.
+2025-12-01T18:17:53.881Z [INFO] [Project Niagapulse]: got Java version: 17
+2025-12-01T18:17:53.882Z [INFO] [Project Niagapulse]: getting dependencies promise.
+2025-12-01T18:17:53.882Z [INFO] Project initial state: {
+  "javaVersion": "17",
+  "dependencies": [
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-data-jpa",
+      "type": "jar",
+      "version": "4.0.0",
+      "scope": "compile",
+      "module": "Niagapulse"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-webmvc",
+      "type": "jar",
+      "version": "4.0.0",
+      "scope": "compile",
+      "module": "Niagapulse"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-devtools",
+      "type": "jar",
+      "version": "4.0.0",
+      "scope": "runtime",
+      "module": "Niagapulse"
+    },
+    {
+      "groupId": "org.postgresql",
+      "artifactId": "postgresql",
+      "type": "jar",
+      "version": "42.7.8",
+      "scope": "runtime",
+      "module": "Niagapulse"
+    },
+    {
+      "groupId": "org.projectlombok",
+      "artifactId": "lombok",
+      "type": "jar",
+      "version": "1.18.42",
+      "scope": "compile",
+      "module": "Niagapulse"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-data-jpa-test",
+      "type": "jar",
+      "version": "4.0.0",
+      "scope": "test",
+      "module": "Niagapulse"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-webmvc-test",
+      "type": "jar",
+      "version": "4.0.0",
+      "scope": "test",
+      "module": "Niagapulse"
+    },
+    {
+      "groupId": "java",
+      "artifactId": "*",
+      "version": "17"
+    }
+  ],
+  "buildResult": {
+    "numOfJavaFiles": 2,
+    "numOfClassFiles": 2,
+    "modulesBuildResult": {
+      ".": {
+        "numOfJavaFiles": 2,
+        "numOfClassFiles": 2
+      }
+    },
+    "errors": [],
+    "command": "mvnw clean test-compile -q -B -fn"
+  },
+  "testResult": {
+    "errors": [],
+    "failures": [],
+    "summary": {
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reports": []
+  }
+}

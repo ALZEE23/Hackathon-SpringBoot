@@ -1,0 +1,7 @@
+2025-12-01T18:17:13.472Z [INFO] [MavenBuildTool] Getting build errors of d:\Coding\Proyek\Niagapulse using Maven
+2025-12-01T18:17:13.475Z [INFO] [Environment] Running command (Java 17): mvnw clean test-compile -q -B -fn
+2025-12-01T18:17:29.613Z [INFO] [MavenBuildTool] parsing compilation errors.
+2025-12-01T18:17:29.615Z [INFO] [BaseBuildTool] Found 1 modules: .
+2025-12-01T18:17:29.631Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2025-12-01T18:17:29.632Z [INFO] [MavenBuildTool] Cleaning d:\Coding\Proyek\Niagapulse using Maven
+2025-12-01T18:17:29.632Z [INFO] [Environment] Running command (Java 17): mvnw clean -q -B -fn
