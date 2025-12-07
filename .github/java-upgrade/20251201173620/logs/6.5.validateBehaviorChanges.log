@@ -1,0 +1,199 @@
+2025-12-01T18:23:38.983Z [INFO] Getting code changes using `git diff`...
+2025-12-01T18:23:39.054Z [INFO] diff --git a/pom.xml b/pom.xml
+index 8752e85..9489f97 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -1,33 +1,34 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++<project xmlns="http://maven.apache.org/POM/4.0.0"
++	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 	<modelVersion>4.0.0</modelVersion>
+ 	<parent>
+ 		<groupId>org.springframework.boot</groupId>
+ 		<artifactId>spring-boot-starter-parent</artifactId>
+ 		<version>4.0.0</version>
+-		<relativePath/> <!-- lookup parent from repository -->
++		<relativePath /> <!-- lookup parent from repository -->
+ 	</parent>
+ 	<groupId>com.niagapulse</groupId>
+ 	<artifactId>Niagapulse</artifactId>
+ 	<version>0.0.1-SNAPSHOT</version>
+ 	<name>Niagapulse</name>
+ 	<description>Demo project for Spring Boot</description>
+-	<url/>
++	<url />
+ 	<licenses>
+-		<license/>
++		<license />
+ 	</licenses>
+ 	<developers>
+-		<developer/>
++		<developer />
+ 	</developers>
+ 	<scm>
+-		<connection/>
+-		<developerConnection/>
+-		<tag/>
+-		<url/>
++		<connection />
++		<developerConnection />
++		<tag />
++		<url />
+ 	</scm>
+ 	<properties>
+-		<java.version>17</java.version>
++		<java.version>21</java.version>
+ 	</properties>
+ 	<dependencies>
+ 		<dependency>
+@@ -39,15 +40,20 @@
+ 			<artifactId>spring-boot-starter-webmvc</artifactId>
+ 		</dependency>
+ 		<dependency>
+-    		<groupId>org.springframework.boot</groupId>
+-    		<artifactId>spring-boot-devtools</artifactId>
+-    		<scope>runtime</scope>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-devtools</artifactId>
++			<scope>runtime</scope>
+ 		</dependency>
+ 
+-
++		<dependency>
++			<groupId>io.github.cdimascio</groupId>
++			<artifactId>java-dotenv</artifactId>
++			<version>5.2.2</version>
++		</dependency>
+ 		<dependency>
+ 			<groupId>org.postgresql</groupId>
+ 			<artifactId>postgresql</artifactId>
++			<version>42.7.2</version>
+ 			<scope>runtime</scope>
+ 		</dependency>
+ 		<dependency>
+@@ -73,6 +79,7 @@
+ 				<groupId>org.apache.maven.plugins</groupId>
+ 				<artifactId>maven-compiler-plugin</artifactId>
+ 				<configuration>
++					<release>21</release>
+ 					<annotationProcessorPaths>
+ 						<path>
+ 							<groupId>org.projectlombok</groupId>
+@@ -96,4 +103,4 @@
+ 		</plugins>
+ 	</build>
+ 
+-</project>
++</project>
+\ No newline at end of file
+
+2025-12-01T18:23:39.065Z [INFO] diff content: 
+ diff --git a/pom.xml b/pom.xml
+index 8752e85..9489f97 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -1,33 +1,34 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++<project xmlns="http://maven.apache.org/POM/4.0.0"
++	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 	<modelVersion>4.0.0</modelVersion>
+ 	<parent>
+ 		<groupId>org.springframework.boot</groupId>
+ 		<artifactId>spring-boot-starter-parent</artifactId>
+ 		<version>4.0.0</version>
+-		<relativePath/> <!-- lookup parent from repository -->
++		<relativePath /> <!-- lookup parent from repository -->
+ 	</parent>
+ 	<groupId>com.niagapulse</groupId>
+ 	<artifactId>Niagapulse</artifactId>
+ 	<version>0.0.1-SNAPSHOT</version>
+ 	<name>Niagapulse</name>
+ 	<description>Demo project for Spring Boot</description>
+-	<url/>
++	<url />
+ 	<licenses>
+-		<license/>
++		<license />
+ 	</licenses>
+ 	<developers>
+-		<developer/>
++		<developer />
+ 	</developers>
+ 	<scm>
+-		<connection/>
+-		<developerConnection/>
+-		<tag/>
+-		<url/>
++		<connection />
++		<developerConnection />
++		<tag />
++		<url />
+ 	</scm>
+ 	<properties>
+-		<java.version>17</java.version>
++		<java.version>21</java.version>
+ 	</properties>
+ 	<dependencies>
+ 		<dependency>
+@@ -39,15 +40,20 @@
+ 			<artifactId>spring-boot-starter-webmvc</artifactId>
+ 		</dependency>
+ 		<dependency>
+-    		<groupId>org.springframework.boot</groupId>
+-    		<artifactId>spring-boot-devtools</artifactId>
+-    		<scope>runtime</scope>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-devtools</artifactId>
++			<scope>runtime</scope>
+ 		</dependency>
+ 
+-
++		<dependency>
++			<groupId>io.github.cdimascio</groupId>
++			<artifactId>java-dotenv</artifactId>
++			<version>5.2.2</version>
++		</dependency>
+ 		<dependency>
+ 			<groupId>org.postgresql</groupId>
+ 			<artifactId>postgresql</artifactId>
++			<version>42.7.2</version>
+ 			<scope>runtime</scope>
+ 		</dependency>
+ 		<dependency>
+@@ -73,6 +79,7 @@
+ 				<groupId>org.apache.maven.plugins</groupId>
+ 				<artifactId>maven-compiler-plugin</artifactId>
+ 				<configuration>
++					<release>21</release>
+ 					<annotationProcessorPaths>
+ 						<path>
+ 							<groupId>org.projectlombok</groupId>
+@@ -96,4 +103,4 @@
+ 		</plugins>
+ 	</build>
+ 
+-</project>
++</project>
+\ No newline at end of file
+2025-12-01T18:23:39.066Z [INFO] Validating code behavior changes...
+2025-12-01T18:23:39.067Z [INFO] [unknown]: there are 89 lines.
+2025-12-01T18:23:39.735Z [INFO] [unknown]: there are 861 tokens.
+2025-12-01T18:23:39.735Z [INFO] [unknown]: no need to split the diff file.
+2025-12-01T18:23:39.736Z [INFO] summarizing behavior changes...
+2025-12-01T18:23:39.737Z [INFO] summarizing behavior changes of part 1...
+2025-12-01T18:23:40.547Z [INFO] summarized behavior changes of part 1.
+2025-12-01T18:23:40.548Z [INFO] summarized behavior changes of all parts.
+2025-12-01T18:23:40.548Z [INFO] summarizing behavior changes...
+2025-12-01T18:23:40.548Z [INFO] summarizing behavior changes of part 1...
+2025-12-01T18:23:41.396Z [INFO] summarized behavior changes of part 1.
+2025-12-01T18:23:41.397Z [INFO] summarized behavior changes of all parts.
+2025-12-01T18:23:41.397Z [INFO] summarizing behavior changes...
+2025-12-01T18:23:41.397Z [INFO] summarizing behavior changes of part 1...
+2025-12-01T18:23:42.080Z [INFO] summarized behavior changes of part 1.
+2025-12-01T18:23:42.080Z [INFO] summarized behavior changes of all parts.
+2025-12-01T18:23:42.080Z [INFO] {}
+2025-12-01T18:23:42.080Z [INFO] Done validating code behavior changes...
