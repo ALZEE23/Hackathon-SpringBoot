@@ -135,11 +135,11 @@
 			<version>1.19.0</version>
 		</dependency>
 		<!-- Hibernate Spatial temporarily disabled due to version compatibility issues -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>6.6.1.Final</version>
-		</dependency> -->
+			<version>6.4.0.Final</version>
+		</dependency>
 	</dependencies>
 
 	<build>
