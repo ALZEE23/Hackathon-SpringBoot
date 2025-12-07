@@ -17,9 +17,9 @@ public class RouteController {
     // Gunakan GET karena kita MEMINTA saran, bukan MENGIRIM data baru
     @GetMapping("/advice")
     public ResponseEntity<RouteAdviceResponse> getAdvice(@RequestParam String vendorId) {
-        
+
         RouteAdviceResponse advice = routeService.getRouteAdvice(vendorId);
-        
+
         return ResponseEntity.ok(advice);
     }
 }
