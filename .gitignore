@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### ENV FILES (RAHASIA) ###
+.env
+.env.local
+*.env

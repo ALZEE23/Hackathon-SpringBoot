@@ -1,0 +1,400 @@
+{
+  "api_version": "1.0",
+  "base_url": "http://localhost:8080",
+  "authentication": "JWT Bearer Token required for protected endpoints",
+  "endpoints": [
+    {
+      "id": 1,
+      "method": "POST",
+      "path": "/api/auth/register",
+      "description": "Mendaftar user baru ke sistem",
+      "authentication": "Not required",
+      "request_body": {
+        "content_type": "application/json",
+        "fields": [
+          {
+            "name": "username",
+            "type": "string",
+            "required": true,
+            "description": "Nama user unik"
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "required": true,
+            "description": "Email user"
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "required": true,
+            "description": "Password user (akan di-hash)"
+          }
+        ],
+        "example": {
+          "username": "john_doe",
+          "email": "john@example.com",
+          "password": "securePassword123"
+        }
+      },
+      "response_body": {
+        "content_type": "application/json",
+        "fields": [
+          {
+            "name": "token",
+            "type": "string",
+            "description": "JWT token untuk authentication"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "Username yang baru didaftarkan"
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "Pesan status"
+          }
+        ],
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+          "username": "john_doe",
+          "message": "Registration successful"
+        }
+      },
+      "status_codes": {
+        "200": "Registrasi berhasil",
+        "400": "Data tidak valid atau user sudah terdaftar",
+        "500": "Server error"
+      }
+    },
+    {
+      "id": 2,
+      "method": "POST",
+      "path": "/api/auth/login",
+      "description": "Login user dan dapatkan JWT token",
+      "authentication": "Not required",
+      "request_body": {
+        "content_type": "application/json",
+        "fields": [
+          {
+            "name": "username",
+            "type": "string",
+            "required": true,
+            "description": "Username yang terdaftar"
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "required": true,
+            "description": "Password user"
+          }
+        ],
+        "example": {
+          "username": "john_doe",
+          "password": "securePassword123"
+        }
+      },
+      "response_body": {
+        "content_type": "application/json",
+        "fields": [
+          {
+            "name": "token",
+            "type": "string",
+            "description": "JWT token untuk akses endpoint yang dilindungi"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "Username yang login"
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "Status login"
+          }
+        ],
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+          "username": "john_doe",
+          "message": "Login successful"
+        }
+      },
+      "status_codes": {
+        "200": "Login berhasil",
+        "401": "Username atau password salah",
+        "500": "Server error"
+      }
+    },
+    {
+      "id": 3,
+      "method": "POST",
+      "path": "/api/tracking/update",
+      "description": "Update lokasi vendor (tracking location)",
+      "authentication": "Required (JWT Bearer Token)",
+      "request_body": {
+        "content_type": "application/json",
+        "fields": [
+          {
+            "name": "vendorId",
+            "type": "string",
+            "required": true,
+            "description": "ID unik vendor/pedagang"
+          },
+          {
+            "name": "latitude",
+            "type": "number (double)",
+            "required": true,
+            "description": "Garis lintang lokasi (Y coordinate, contoh: -6.1754)"
+          },
+          {
+            "name": "longitude",
+            "type": "number (double)",
+            "required": true,
+            "description": "Garis bujur lokasi (X coordinate, contoh: 106.8272)"
+          }
+        ],
+        "example": {
+          "vendorId": "VENDOR_001",
+          "latitude": -6.1754,
+          "longitude": 106.8272
+        }
+      },
+      "response_body": {
+        "content_type": "text/plain",
+        "example": "Location received and logged"
+      },
+      "status_codes": {
+        "200": "Lokasi berhasil disimpan",
+        "400": "Data tidak lengkap (latitude/longitude kosong)",
+        "500": "Server error"
+      }
+    },
+    {
+      "id": 4,
+      "method": "POST",
+      "path": "/api/sales/record",
+      "description": "Catat penjualan vendor (increment sales counter)",
+      "authentication": "Required (JWT Bearer Token)",
+      "request_body": {
+        "content_type": "application/json",
+        "fields": [
+          {
+            "name": "vendorId",
+            "type": "string",
+            "required": true,
+            "description": "ID vendor yang melakukan penjualan"
+          }
+        ],
+        "example": {
+          "vendorId": "VENDOR_001"
+        }
+      },
+      "response_body": {
+        "content_type": "text/plain",
+        "example": "Counter ++ Success"
+      },
+      "status_codes": {
+        "200": "Penjualan berhasil dicatat",
+        "400": "Data tidak valid",
+        "500": "Server error"
+      }
+    },
+    {
+      "id": 5,
+      "method": "GET",
+      "path": "/api/route/advice",
+      "description": "Dapatkan rekomendasi rute dari AI berdasarkan lokasi dan cuaca vendor",
+      "authentication": "Required (JWT Bearer Token)",
+      "query_parameters": [
+        {
+          "name": "vendorId",
+          "type": "string",
+          "required": true,
+          "description": "ID vendor yang meminta saran rute"
+        }
+      ],
+      "example_url": "http://localhost:8080/api/route/advice?vendorId=VENDOR_001",
+      "response_body": {
+        "content_type": "application/json",
+        "fields": [
+          {
+            "name": "vendorId",
+            "type": "string",
+            "description": "ID vendor"
+          },
+          {
+            "name": "currentArea",
+            "type": "string",
+            "description": "Nama area/lokasi vendor saat ini"
+          },
+          {
+            "name": "currentWeather",
+            "type": "string",
+            "description": "Kondisi cuaca di lokasi vendor"
+          },
+          {
+            "name": "aiRecommendation",
+            "type": "string",
+            "description": "Rekomendasi rute dari AI (contoh: 'Pindah ke arah utara karena penjualan meningkat')"
+          },
+          {
+            "name": "aiModelUsed",
+            "type": "string",
+            "description": "Model AI yang digunakan untuk generate rekomendasi"
+          }
+        ],
+        "example": {
+          "vendorId": "VENDOR_001",
+          "currentArea": "Jakarta, Indonesia",
+          "currentWeather": "Clear",
+          "aiRecommendation": "Segera menuju ke arah barat daya untuk meningkatkan penjualan Anda",
+          "aiModelUsed": "Claude Sonnet 4.5"
+        }
+      },
+      "status_codes": {
+        "200": "Rekomendasi berhasil didapatkan",
+        "400": "vendorId tidak ditemukan",
+        "401": "Token tidak valid",
+        "500": "Server error"
+      }
+    },
+    {
+      "id": 6,
+      "method": "GET",
+      "path": "/api/hello",
+      "description": "Test endpoint sederhana (public, tidak perlu authentication)",
+      "authentication": "Not required",
+      "response_body": {
+        "content_type": "application/json",
+        "example": {
+          "message": "Hello World"
+        }
+      },
+      "status_codes": {
+        "200": "OK"
+      }
+    },
+    {
+      "id": 7,
+      "method": "GET",
+      "path": "/api/hello/user",
+      "description": "Greeting dengan nama user yang sedang login",
+      "authentication": "Required (JWT Bearer Token)",
+      "response_body": {
+        "content_type": "application/json",
+        "example": {
+          "message": "Hello john_doe"
+        }
+      },
+      "status_codes": {
+        "200": "OK",
+        "401": "Token tidak valid"
+      }
+    }
+  ],
+  "authentication_header": {
+    "name": "Authorization",
+    "format": "Bearer <JWT_TOKEN>",
+    "example": "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  },
+  "error_responses": {
+    "400": {
+      "description": "Bad Request - Data tidak valid",
+      "example": {
+        "timestamp": "2025-12-06T12:34:56.789Z",
+        "status": 400,
+        "error": "Bad Request",
+        "message": "Error: latitude and longitude are required"
+      }
+    },
+    "401": {
+      "description": "Unauthorized - Token tidak valid atau tidak ada",
+      "example": {
+        "timestamp": "2025-12-06T12:34:56.789Z",
+        "status": 401,
+        "error": "Unauthorized",
+        "message": "Invalid or missing JWT token"
+      }
+    },
+    "500": {
+      "description": "Internal Server Error",
+      "example": {
+        "timestamp": "2025-12-06T12:34:56.789Z",
+        "status": 500,
+        "error": "Internal Server Error",
+        "message": "Database error"
+      }
+    }
+  },
+  "usage_example": {
+    "register_flow": [
+      {
+        "step": 1,
+        "method": "POST",
+        "url": "http://localhost:8080/api/auth/register",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "username": "pedagang_sate",
+          "email": "pedagang@example.com",
+          "password": "password123"
+        },
+        "response": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+          "username": "pedagang_sate",
+          "message": "Registration successful"
+        }
+      }
+    ],
+    "login_and_track": [
+      {
+        "step": 1,
+        "description": "Login untuk dapatkan token",
+        "method": "POST",
+        "url": "http://localhost:8080/api/auth/login",
+        "body": {
+          "username": "pedagang_sate",
+          "password": "password123"
+        },
+        "response_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      },
+      {
+        "step": 2,
+        "description": "Update lokasi vendor",
+        "method": "POST",
+        "url": "http://localhost:8080/api/tracking/update",
+        "headers": {
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        },
+        "body": {
+          "vendorId": "VENDOR_001",
+          "latitude": -6.1754,
+          "longitude": 106.8272
+        }
+      },
+      {
+        "step": 3,
+        "description": "Catat penjualan",
+        "method": "POST",
+        "url": "http://localhost:8080/api/sales/record",
+        "headers": {
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        },
+        "body": {
+          "vendorId": "VENDOR_001"
+        }
+      },
+      {
+        "step": 4,
+        "description": "Dapatkan rekomendasi rute",
+        "method": "GET",
+        "url": "http://localhost:8080/api/route/advice?vendorId=VENDOR_001",
+        "headers": {
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      }
+    ]
+  }
+}
