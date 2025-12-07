@@ -19,13 +19,18 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-        User user = userService.register(request);
-        String token = jwtService.generateToken(user.getUsername());
+        try {
+            User user = userService.register(request);
+            String token = jwtService.generateToken(user.getUsername());
 
-        return ResponseEntity.ok(new AuthResponse(
-                token,
-                user.getUsername(),
-                "Registration successful"));
+            return ResponseEntity.ok(new AuthResponse(
+                    token,
+                    user.getUsername(),
+                    "Registration successful"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(
+                    new AuthResponse(null, null, e.getMessage()));
+        }
     }
 
     @PostMapping("/login")
