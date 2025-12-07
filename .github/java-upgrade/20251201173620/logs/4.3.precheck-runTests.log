@@ -1,0 +1,6 @@
+2025-12-01T18:17:35.940Z [INFO] [MavenBuildTool] Running test cases of d:\Coding\Proyek\Niagapulse using Maven
+2025-12-01T18:17:35.940Z [INFO] [Environment] Running command (Java 17): mvnw clean test -q -B -fn
+2025-12-01T18:17:48.482Z [INFO] [MavenBuildTool] loading surefire reports.
+2025-12-01T18:17:48.524Z [INFO] [MavenBuildTool] summarizing surefire reports.
+2025-12-01T18:17:48.524Z [INFO] [MavenBuildTool] Cleaning d:\Coding\Proyek\Niagapulse using Maven
+2025-12-01T18:17:48.525Z [INFO] [Environment] Running command (Java 17): mvnw clean -q -B -fn

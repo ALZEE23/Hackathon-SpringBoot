@@ -1,0 +1,22 @@
+2025-12-01T18:22:14.789Z [INFO] [BaseBuildTool] Firing config modified event for mvnw, sleeping for 5 seconds
+2025-12-01T18:22:14.791Z [INFO] [Environment] Running command (Java 21): mvnw --version
+Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+Maven home: C:\Users\MarMikir\.m2\wrapper\dists\apache-maven-3.9.6\0f95e7798d182e3371f3fee6d8202d3a56e6d71dfd3a2402139882ef2fbe7476
+Java version: 21.0.8, vendor: Microsoft, runtime: C:\Users\MarMikir\.jdk\jdk-21.0.8
+Default locale: en_US, platform encoding: UTF-8
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+2025-12-01T18:22:16.433Z [INFO] [BaseBuildTool] New version of mvnw: 3.9.6 -> 3.9.6
+2025-12-01T18:22:16.434Z [INFO] [MavenBuildTool] Getting Java version of d:\Coding\Proyek\Niagapulse from pom.xml
+2025-12-01T18:22:16.435Z [INFO] [MavenBuildTool] Searching for pom.xml files in d:\Coding\Proyek\Niagapulse
+2025-12-01T18:22:16.436Z [INFO] [MavenBuildTool] Found pom.xml files: d:\Coding\Proyek\Niagapulse\pom.xml
+2025-12-01T18:22:16.438Z [INFO] [MavenBuildTool] Java version found in d:\Coding\Proyek\Niagapulse\pom.xml: 21
+2025-12-01T18:22:16.439Z [INFO] [BaseBuildTool] Notifying Java version/Config change: '21' || '21'
+2025-12-01T18:22:16.441Z [INFO] [MavenBuildTool] Getting build errors of d:\Coding\Proyek\Niagapulse using Maven
+2025-12-01T18:22:16.442Z [INFO] [Environment] Running command (Java 21): mvnw clean test-compile -q -B -fn
+2025-12-01T18:22:29.121Z [INFO] [MavenBuildTool] parsing compilation errors.
+2025-12-01T18:22:29.121Z [INFO] [BaseBuildTool] Found 1 modules: .
+2025-12-01T18:22:29.133Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2025-12-01T18:22:29.133Z [INFO] [MavenBuildTool] Cleaning d:\Coding\Proyek\Niagapulse using Maven
+2025-12-01T18:22:29.134Z [INFO] [Environment] Running command (Java 21): mvnw clean -q -B -fn
+2025-12-01T18:22:35.061Z [INFO] Build succeeded! There are no build errors in the project.
+2025-12-01T18:22:35.065Z [INFO] Build project completed. Looking for next task...
